@@ -1,0 +1,15 @@
+---
+title: "EMVS: The EM Approach to Bayesian Variable Selection"
+author: "Caleb Jin"
+date: "12-15-2017"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+description: ""
+---
+
+# Foreword
+
+I am [Caleb Jin](https://www.sjin.name/). After I read this paper, **[EMVS: The EM Approach to Bayesian Variable Selection](https://www.tandfonline.com/doi/full/10.1080/01621459.2013.869223)**[@EMVS], I write down the nodes of the key idea and R code to realize it.

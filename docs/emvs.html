@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 EMVS | EMVS: The EM Approach to Bayesian Variable Selection</title>
+  <meta name="description" content="4 EMVS | EMVS: The EM Approach to Bayesian Variable Selection" />
+  <meta name="generator" content="bookdown 0.13.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 EMVS | EMVS: The EM Approach to Bayesian Variable Selection" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 EMVS | EMVS: The EM Approach to Bayesian Variable Selection" />
+  
+  
+  
+
+<meta name="author" content="Caleb Jin" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="stochastic-search-variable-selection-ssvs.html"/>
+<link rel="next" href="simulation-case-study.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EMVS</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreword</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="stochastic-search-variable-selection-ssvs.html"><a href="stochastic-search-variable-selection-ssvs.html"><i class="fa fa-check"></i><b>3</b> Stochastic Search Variable Selection (SSVS)</a><ul>
+<li class="chapter" data-level="3.1" data-path="stochastic-search-variable-selection-ssvs.html"><a href="stochastic-search-variable-selection-ssvs.html#model-settings"><i class="fa fa-check"></i><b>3.1</b> Model Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="emvs.html"><a href="emvs.html"><i class="fa fa-check"></i><b>4</b> EMVS</a><ul>
+<li class="chapter" data-level="4.1" data-path="emvs.html"><a href="emvs.html#the-e-step"><i class="fa fa-check"></i><b>4.1</b> The E-Step</a></li>
+<li class="chapter" data-level="4.2" data-path="emvs.html"><a href="emvs.html#the-m-step"><i class="fa fa-check"></i><b>4.2</b> The M-Step</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation-case-study.html"><a href="simulation-case-study.html"><i class="fa fa-check"></i><b>5</b> Simulation Case Study</a><ul>
+<li class="chapter" data-level="5.1" data-path="simulation-case-study.html"><a href="simulation-case-study.html#the-effect-of-different-nu_0-and-boldsymbol-beta0-values-on-variable-selection"><i class="fa fa-check"></i><b>5.1</b> The effect of different <span class="math inline">\(\nu_0\)</span> and <span class="math inline">\({\boldsymbol \beta}^{(0)}\)</span> values on variable selection</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://www.sjin.name" target="blank">Caleb Jin|金时强</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EMVS: The EM Approach to Bayesian Variable Selection</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="emvs" class="section level1">
+<h1><span class="header-section-number">4</span> EMVS</h1>
+<p>Genared toward finding posterior modes of the parameter posterior <span class="math inline">\(\pi({\boldsymbol \beta},\sigma^2,\theta|{\bf y})\)</span> rather than simulating from the entire model posterior <span class="math inline">\(\pi({\boldsymbol \gamma}|{\bf y})\)</span>, the EM algorithm derived here offers potentially enormous computational savings over stochastic search alternatives, especially in problems with a large number p of potential predictors.</p>
+<p><span class="math inline">\(\textbf{EMVS}\)</span> consists of two steps: E-Step, conditional expectation given the observed data and current parameter estimates, and M-Step, entails the maximization of the expected complete data log posterior with respect to <span class="math inline">\(({\boldsymbol \beta},\sigma^2,\theta)\)</span>.</p>
+<p>Define <span class="math inline">\({\boldsymbol \phi}= ({\boldsymbol \beta},\sigma^2,\theta)\)</span>. EM algorithm maximizes <span class="math inline">\(\pi({\boldsymbol \phi}|{\bf y})\)</span> by iteratively maximizing the objective function
+<span class="math display">\[\begin{eqnarray*}
+        Q({\boldsymbol \phi}|{\boldsymbol \phi}^{(t-1)},{\bf y}) = E_{{\boldsymbol \gamma}|\cdot}[\log \pi({\boldsymbol \phi},{\boldsymbol \gamma}|{\bf y})],
+\end{eqnarray*}\]</span>
+where <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}\)</span> denotes <span class="math inline">\(E_{{\boldsymbol \gamma}|{\boldsymbol \phi}^{(t-1)},{\bf y}}\)</span>.</p>
+<p>According to the class note, it can be written as
+<span class="math display" id="eq:Estep">\[\begin{eqnarray}
+    Q^{\star}({\boldsymbol \phi}|{\boldsymbol \phi}^{(t-1)},{\bf y}) = E_{{\boldsymbol \gamma}|\cdot}[\log \pi({\boldsymbol \phi}|{\boldsymbol \gamma},{\bf y})]
+    \tag{4.1}
+\end{eqnarray}\]</span>
+At the <span class="math inline">\((t-1)\)</span>th iteration, given <span class="math inline">\({\boldsymbol \phi}^{(t-1)}\)</span>, an E-step is first applied, which computes the expectation of the right side of <a href="emvs.html#eq:Estep">(4.1)</a> to obtain <span class="math inline">\(Q\)</span>. This is followed by M-step, which maximizes <span class="math inline">\(Q\)</span> over <span class="math inline">\(({\boldsymbol \beta},\sigma^2,\theta)\)</span> to obtain <span class="math inline">\(({\boldsymbol \beta}^{(t)},\sigma^{2{(t)}},\theta^{(t)})\)</span>.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+        &amp;&amp;Q^{\star}({\boldsymbol \beta},\sigma^2,\theta|{\boldsymbol \beta}^{(t)},\sigma^{2{(t)}},\theta^{(t)},{\bf y}) \\
+        &amp;=&amp; Q^{\star}({\boldsymbol \beta},\sigma^2,\theta|{\boldsymbol \phi}^{(t-1)},{\bf y}) \\
+        &amp;=&amp; C + Q_1({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y}) + Q_2(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})\\
+        &amp;=&amp; C + E_{{\boldsymbol \gamma}|\cdot}[\log \pi({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})]+
+        E_{{\boldsymbol \gamma}|\cdot}[\log \pi(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})]
+\end{eqnarray*}\]</span></p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li><span class="math inline">\(Q_1({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})\)</span>
+<span class="math display">\[\begin{eqnarray*}
+      &amp;&amp;\pi({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})\\
+      &amp;\propto&amp; \pi(y|{\boldsymbol \beta},\sigma^2)\pi({\boldsymbol \beta}|\sigma^2,{\boldsymbol \gamma})\pi(\sigma^2)\\
+      &amp;\propto&amp; (\sigma^2)^{-\frac{n}{2}}\exp\left(-\frac{1}{2\sigma^2}||y-x{\boldsymbol \beta}||^2\right)
+      (\sigma^2)^{-\frac{p}{2}}\prod_{j=1}^{p}\nu_{\gamma_j}\exp\left(-\frac{1}{2\sigma^2\nu_{\gamma_j}}\beta_j^2\right)\\
+      &amp;&amp;\times (\sigma^2)^{-\frac{a}{2}-1}\exp\left(-\frac{b}{2\sigma^2}\right)\\
+      &amp;\propto&amp; (\sigma^2)^{-\frac{n+p+a+2}{2}}\exp\left[-\frac{1}{2\sigma^2}\left(||y-x{\boldsymbol \beta}||^2+
+      \sum_{j=1}^{p}\beta_j^2\frac{1}{\nu_{\gamma_j}}+b\right)\right]
+\end{eqnarray*}\]</span></li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;Q_1({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})\\
+            &amp;=&amp; E_{{\boldsymbol \gamma}|\cdot}[\log(\pi({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y}))]\\
+            &amp;=&amp; -\frac{1}{2}(n+p+a+2)\log(\sigma^2)-\frac{1}{2\sigma^2}(||y-x{\boldsymbol \beta}||^2+b)-\frac{1}{2\sigma^2}
+            \sum_{j=1}^{p}\beta_j^2E_{{\boldsymbol \gamma}|\cdot}[\frac{1}{\nu_{\gamma_j}}]
+\end{eqnarray*}\]</span></p>
+<ul>
+<li><ol start="2" style="list-style-type: decimal">
+<li><span class="math inline">\(Q_2(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})\)</span>
+<span class="math display">\[\begin{eqnarray*}
+      &amp;&amp;\pi(\theta|{\boldsymbol \gamma},{\bf y})\\
+      &amp;\propto&amp; \pi({\boldsymbol \gamma}|\theta)p(\theta)\\
+      &amp;\propto&amp; \theta^{\sum_{j=1}^{p}\gamma_j+c_1-1}(1-\theta)^{p-\sum_{j=1}^{p}\gamma_j+c_2-1}
+\end{eqnarray*}\]</span></li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;\log(\pi(\theta|{\boldsymbol \gamma},{\bf y}))\\
+            &amp;=&amp; C+ (\sum_{j=1}^{p}\gamma_j+c_1-1)\log \theta + (p-\sum_{j=1}^{p}\gamma_j+c_2-1)\log
+            (1-\theta)\\        
+            &amp;=&amp; C+\log \frac{\theta}{1-\theta} \sum_{j=1}^{p}\gamma_j
+            + (c_1-1)\log\theta + (p+c_2-1)\log(1-\theta)   
+\end{eqnarray*}\]</span></p>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;Q_2(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})\\
+            &amp;=&amp; \log \frac{\theta}{1-\theta} \sum_{j=1}^{p}E_{{\boldsymbol \gamma}|\cdot}[\gamma_j]+
+            (c_1-1)\log\theta + (p+c_2-1)\log(1-\theta) \\
+\end{eqnarray*}\]</span></p>
+<div id="the-e-step" class="section level2">
+<h2><span class="header-section-number">4.1</span> The E-Step</h2>
+<p>The E-step proceeds by computing the conditional expectations <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}[\frac{1}{\nu_{\gamma_j}}]\)</span> and <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}[\gamma_j]\)</span> for <span class="math inline">\(Q_1\)</span> and <span class="math inline">\(Q_2\)</span>, respectively.</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>For <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}[\gamma_j]\)</span>,</li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;\pi(\gamma_j|\theta,\beta_j,\sigma^2,{\bf y})\\
+            &amp;\propto&amp;\pi(\beta_j|\gamma_j,\sigma^2)p(\gamma_j|\theta)\\
+            &amp;\propto&amp;\nu_{\gamma_j}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{\gamma_j}}\beta_j^2\right)
+            \theta^{\gamma_j}(1-\theta)^{1-\gamma_j}
+\end{eqnarray*}\]</span></p>
+<p>Hence, <span class="math inline">\(\pi(\gamma_j=1|\theta,\beta_j,\sigma^2,{\bf y})=C \nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta\equiv a_i\)</span>,</p>
+<p><span class="math inline">\(\pi(\gamma_j=0|\theta,\beta_j,\sigma^2,{\bf y})=C \nu_{0}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{0}}\beta_j^2\right)(1-\theta)\equiv b_i\)</span>.</p>
+<p>Hence,</p>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;E_{{\boldsymbol \gamma}|\cdot}[\gamma_j]=\pi(\gamma_j=1|\theta,\beta_j,\sigma^2,{\bf y})\\
+            &amp;=&amp;\frac{\pi(\gamma_j=1,\Omega)}{\sum_{\gamma_j}\pi(\gamma_j,\Omega)}\\
+            &amp;=&amp;\frac{C \nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta}
+            {C \nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta
+                +C \nu_{0}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{0}}\beta_j^2\right)(1-\theta)}\\
+            &amp;=&amp;\frac{ \nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta}
+            {\nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta
+                + \nu_{0}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{0}}\beta_j^2\right)(1-\theta)}\\
+            &amp;=&amp;p_i^*
+\end{eqnarray*}\]</span></p>
+<p>Hence,</p>
+<p><span class="math display" id="eq:q2">\[\begin{eqnarray}
+        &amp;&amp;Q_2(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})\nonumber\\
+        &amp;=&amp; \log \frac{\theta}{1-\theta} \sum_{j=1}^{p}p_i^*+
+        (c_1-1)\log\theta + (p+c_2-1)\log(1-\theta)
+        \tag{4.2}
+\end{eqnarray}\]</span></p>
+<ul>
+<li><ol start="2" style="list-style-type: decimal">
+<li>For <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}[\frac{1}{\nu_{\gamma_j}}]\)</span>,
+<span class="math display">\[\begin{eqnarray*}   
+      &amp;&amp;E_{{\boldsymbol \gamma}|\cdot}[\frac{1}{\nu_{\gamma_j}}]\\
+      &amp;=&amp;p(\gamma_j=1|\cdot)\frac{1}{\nu_{\gamma_j=1}} +
+      p(\gamma_j=0|\cdot)\frac{1}{\nu_{\gamma_j=0}}\\
+      &amp;=&amp; \frac{p_i^*}{\nu_{1}}+\frac{1-p_i^*}{\nu_{0}} \equiv d^*_i 
+\end{eqnarray*}\]</span>
+Hence,
+<span class="math display" id="eq:q1">\[\begin{eqnarray}
+  &amp;&amp;Q_1({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})\nonumber\\
+  &amp;=&amp; -\frac{1}{2}(n+p+a+2)\log(\sigma^2)-\frac{1}{2\sigma^2}(||{\bf y}-x{\boldsymbol \beta}||^2+b)-\frac{1}{2\sigma^2}
+  \sum_{j=1}^{p}\beta_j^2d^*_i \nonumber\\
+  &amp;=&amp; -\frac{1}{2}(n+p+a+2)\log(\sigma^2)-\frac{1}{2\sigma^2}(||{\bf y}-x{\boldsymbol \beta}||^2+b)-\nonumber\\
+  &amp;&amp;\frac{1}{2\sigma^2} ||{\bf D}^{*1/2}{\boldsymbol \beta}||^2, 
+  \tag{4.3}
+\end{eqnarray}\]</span>
+where <span class="math inline">\({\bf D}^*={\rm diag}\{d_i^*\}_{i=1}^{p^*}\)</span></li>
+</ol></li>
+</ul>
+</div>
+<div id="the-m-step" class="section level2">
+<h2><span class="header-section-number">4.2</span> The M-Step</h2>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li><p>Maximize <span class="math inline">\(Q_1\)</span></p>
+<p><span class="math inline">\({\boldsymbol \beta}\)</span> values that maximizes <span class="math inline">\(Q1\)</span> in Eq.<a href="emvs.html#eq:q1">(4.3)</a> is equivalent to
+<span class="math display">\[
+  {\boldsymbol \beta}^{(t)}=\arg\min_{{\boldsymbol \beta}\to\mathcal{R}^p}||{\bf y}-x{\boldsymbol \beta}||^2+||{\bf D}^{*1/2}{\boldsymbol \beta}||^2.
+  \]</span>
+This is quickly obtained by the well-known solution to the ridge regression problem:
+<span class="math display">\[
+  {\boldsymbol \beta}^{(t)} = ({\bf X}^{{\top}}{\bf X}+{\bf D}^*)^{-1}{\bf X}^{{\top}}{\bf y}
+  \]</span></p>
+<p>Given <span class="math inline">\({\boldsymbol \beta}^{(t)}\)</span>, solve the solution of <span class="math inline">\(\frac{\partial Q_1}{\partial \sigma^2}\)</span>, we can easily obtain
+<span class="math display">\[
+  \sigma^{2(t)} = \frac{||{\bf y}-{\bf X}{\boldsymbol \beta}^{(t)}||^2+ ||{\bf D}^{*1/2}{\boldsymbol \beta}^{(t)}||^2 + b}{n+p+a+2}.
+  \]</span></p></li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Maximize <span class="math inline">\(Q_2\)</span></li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;\frac{\partial Q_2}{\partial \theta}\\
+            &amp;=&amp; \frac{1-\theta}{\theta}\frac{1-\theta+\theta}{(1-\theta)^2}\sum_{j=1}^{p}p_j^*+\frac{a-1}{\theta}-\frac{p+b-1}{1-\theta}\\
+            &amp;=&amp;\frac{\sum_{j=1}^{p}p_j^*}{\theta(1-\theta)}+\frac{a-1}{\theta}-\frac{p+b-1}{1-\theta}\\
+            &amp;=&amp;\frac{\sum_{j=1}^{p}p_j^*-(a+b+p-2)\theta+a-1}{\theta(1-\theta)}\\
+            &amp;\equiv&amp; 0
+\end{eqnarray*}\]</span>
+Hence, we have <span class="math inline">\(\theta^{(t)}=\frac{\sum_{j=1}^{p}p_j^*+a-1}{a+b+p-2}\)</span>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="stochastic-search-variable-selection-ssvs.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simulation-case-study.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["EMVS.pdf", "EMVS.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

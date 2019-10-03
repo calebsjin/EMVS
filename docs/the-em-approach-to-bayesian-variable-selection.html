@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 The EM Approach to Bayesian Variable Selection | EMVS: The EM Approach to Bayesian Variable Selection</title>
+  <meta name="description" content="2 The EM Approach to Bayesian Variable Selection | EMVS: The EM Approach to Bayesian Variable Selection" />
+  <meta name="generator" content="bookdown 0.13.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 The EM Approach to Bayesian Variable Selection | EMVS: The EM Approach to Bayesian Variable Selection" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 The EM Approach to Bayesian Variable Selection | EMVS: The EM Approach to Bayesian Variable Selection" />
+  
+  
+  
+
+<meta name="author" content="Caleb Jin" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EMVS</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreword</a></li>
+<li class="chapter" data-level="2" data-path="the-em-approach-to-bayesian-variable-selection.html"><a href="the-em-approach-to-bayesian-variable-selection.html"><i class="fa fa-check"></i><b>2</b> The EM Approach to Bayesian Variable Selection</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-em-approach-to-bayesian-variable-selection.html"><a href="the-em-approach-to-bayesian-variable-selection.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="the-em-approach-to-bayesian-variable-selection.html"><a href="the-em-approach-to-bayesian-variable-selection.html#stochastic-search-variable-selection-ssvs"><i class="fa fa-check"></i><b>2.2</b> Stochastic Search Variable Selection (SSVS)</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="the-em-approach-to-bayesian-variable-selection.html"><a href="the-em-approach-to-bayesian-variable-selection.html#model-settings"><i class="fa fa-check"></i><b>2.2.1</b> Model Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="the-em-approach-to-bayesian-variable-selection.html"><a href="the-em-approach-to-bayesian-variable-selection.html#emvs"><i class="fa fa-check"></i><b>2.3</b> EMVS</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="the-em-approach-to-bayesian-variable-selection.html"><a href="the-em-approach-to-bayesian-variable-selection.html#the-e-step"><i class="fa fa-check"></i><b>2.3.1</b> The E-Step</a></li>
+<li class="chapter" data-level="2.3.2" data-path="the-em-approach-to-bayesian-variable-selection.html"><a href="the-em-approach-to-bayesian-variable-selection.html#the-m-step"><i class="fa fa-check"></i><b>2.3.2</b> The M-Step</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="the-em-approach-to-bayesian-variable-selection.html"><a href="the-em-approach-to-bayesian-variable-selection.html#simulation-case-study"><i class="fa fa-check"></i><b>2.4</b> Simulation Case Study</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="the-em-approach-to-bayesian-variable-selection.html"><a href="the-em-approach-to-bayesian-variable-selection.html#the-effect-of-different-nu_0-and-boldsymbol-beta0-values-on-variable-selection"><i class="fa fa-check"></i><b>2.4.1</b> The effect of different <span class="math inline">\(\nu_0\)</span> and <span class="math inline">\({\boldsymbol \beta}^{(0)}\)</span> values on variable selection</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://www.sjin.name" target="blank">Caleb Jin|金时强</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EMVS: The EM Approach to Bayesian Variable Selection</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-em-approach-to-bayesian-variable-selection" class="section level1">
+<h1><span class="header-section-number">2</span> The EM Approach to Bayesian Variable Selection</h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">2.1</span> Introduction</h2>
+<p>The <strong>EMVS</strong> method is anchored by <strong>EM</strong> algorithm and original stochastic search variable selection (<strong>SSVS</strong>). It is a deterministic alternative to <strong>MCMC</strong> stochastic search and ideally suited for high-dimensional <span class="math inline">\(p&gt;n\)</span> settings. Furthermore, <strong>EMVS</strong> is able to effectively identify the sparse high-probability model and find candidate models within a fraction of the time needed by <strong>SSVS</strong>. This algorithm makes it possible to carry out dynamic posterior exploration for the identification of posterior modes.</p>
+<p>The outline of this course project is as follows. In section 2, we build original <strong>SSVS</strong> method, including its prior and posterior distribution for each parameter. In section 3, I derive the author’s new idea <strong>EMVS</strong> method in very details that the author omits. In section 4, I perform several simulation case studies from this paper and me, then compare the results of <strong>SSVS</strong> and <strong>EMVS</strong>.</p>
+</div>
+<div id="stochastic-search-variable-selection-ssvs" class="section level2">
+<h2><span class="header-section-number">2.2</span> Stochastic Search Variable Selection (SSVS)</h2>
+<div id="model-settings" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Model Settings</h3>
+Consider a multiple linear regression model as follows:
+<span class="math display" id="eq:1">\[\begin{eqnarray}
+    {\bf y}={\bf X}{\boldsymbol \beta}+ {\boldsymbol \epsilon},
+    \tag{2.1}
+    \end{eqnarray}\]</span>
+where <span class="math inline">\({\bf y}=(y_1,\ldots,y_n)^{{\top}}\)</span> is the <span class="math inline">\(n\)</span>-dimensional response vector, <span class="math inline">\({\bf X}=[{\bf x}_1,\ldots,{\bf x}_n]^{{\top}}\)</span> is the <span class="math inline">\(n\times p\)</span> design
+matrix, <span class="math inline">\({\boldsymbol \beta}=(\beta_1, \beta_2, \ldots, \beta_p)&#39;\)</span>, <span class="math inline">\(\sigma^2\)</span> is a scalar, and <span class="math inline">\({\boldsymbol \epsilon}\sim \mathcal{N}_n({\bf 0},\sigma^2{\bf I}_n)\)</span>.
+Both <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\({\boldsymbol \beta}\)</span> are considerd bo te unknown. We assume that <span class="math inline">\(p&gt;n\)</span>.
+From <a href="the-em-approach-to-bayesian-variable-selection.html#eq:1">(2.1)</a>, the likelihood function is given as
+<span class="math display">\[\begin{eqnarray}
+    {\bf y}|{\boldsymbol \beta}, \sigma^2 \sim \mathcal{N}({\bf X}{\boldsymbol \beta}, \sigma^2I_n).
+    \end{eqnarray}\]</span>
+
+<p>The cornerstone of <span class="math inline">\(\textbf{SSVS}\)</span> is the “spike and slab” Gaussian mixture prior on <span class="math inline">\({\boldsymbol \beta}\)</span>,
+<span class="math display">\[\begin{eqnarray}
+    \beta_j|\sigma^2,\gamma_j \stackrel{ind}{\sim} (1-\gamma_j) \mathcal{N}(0, \sigma^2\nu_0) + \gamma_j\mathcal{N}(0,\sigma^2\nu_1),
+    \end{eqnarray}\]</span>
+where
+<span class="math display" id="eq:spike-slab">\[\begin{eqnarray*}
+        \gamma_j=\left\{
+        \begin{array}{lcr}
+            1 &amp; \beta_j \neq 0\\
+            0 &amp; \beta_j=0,
+\end{array}\right.
+\tag{2.2}
+\end{eqnarray*}\]</span>
+<span class="math inline">\(j=1,2,\ldots, p\)</span>. <span class="math inline">\(0\leq \nu_0&lt;\nu_1\)</span>.\
+Hence, <span class="math inline">\({\boldsymbol \beta}|\sigma^2,{\boldsymbol \gamma}\sim \mathcal{N}_p({\bf 0},{\bf D}_{\sigma^2,{\boldsymbol \gamma}})\)</span>, where <span class="math inline">\({\bf D}_{\sigma^2,{\boldsymbol \gamma}} = \sigma^2  {\rm diag}(\nu_{z_1},\nu_{z_1},\ldots,\nu_{z_p})\)</span>.\
+For the prior on the <span class="math inline">\(\sigma^2\)</span>, I follow the GM97 and use inverse gamma prior but different notation,
+<span class="math display">\[\begin{eqnarray}
+    \sigma^2 \sim \mathcal{IG}(\frac{a}{2}, \frac{b}{2}),
+    \end{eqnarray}\]</span>
+where we will use <span class="math inline">\(a=1\)</span> and <span class="math inline">\(b=1\)</span>, and <span class="math inline">\(\sigma^2\)</span> is also independent of <span class="math inline">\({\boldsymbol \gamma}\)</span>. \
+I follow the GM97 and use Bernoulli prior form but different notation,
+<span class="math display">\[\begin{eqnarray}
+    \gamma_j|\theta \stackrel{iid}{\sim} Ber(\theta), \theta \in [0,1].
+    \end{eqnarray}\]</span>
+Hence,
+<span class="math display" id="eq:gamma">\[\begin{eqnarray}\label{gamma}
+    {\boldsymbol \gamma}\propto \theta^{\sum_{j=1}^{p}\gamma_j}(1-\theta)^{p-\sum_{j=1}^{p}\gamma_j} 
+    \tag{2.3}
+    \end{eqnarray}\]</span>
+We assume
+<span class="math display">\[\begin{eqnarray}
+    \theta \sim \mathcal{B}(c_1,c_2),
+    \end{eqnarray}\]</span>
+where we will use <span class="math inline">\(c_1=c_2=1\)</span>, which leads to the uniform distribution.\</p>
+<p>It is easy to show that the full conditionals are as follows:</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li><span class="math display">\[\beta_j|{\boldsymbol \beta}_{-j}, \sigma^2, {\boldsymbol \gamma}, \nu_0, {\bf y}\sim \mathcal{N}(\tilde{\beta}_j, \frac{\sigma^2}{\mu_j}).\]</span>
+where <span class="math inline">\(\mu_j= x_j^{{\top}}x_j + \frac{1}{\nu_{\gamma_j}}\)</span> and <span class="math inline">\(\tilde{\beta}_j = \mu_j^{-1}x_j^{{\top}}({\bf y}- {\bf X}_{-j}{\boldsymbol \beta}_{-j})\)</span>.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li><span class="math display">\[\begin{eqnarray}
+    \gamma_j |{\boldsymbol \gamma}_{-j}, {\boldsymbol \beta}, \sigma^2, {\bf y}\sim Ber\left(\frac{ \nu_1^{-\frac{1}{2}}
+        \exp\left(-\frac{1}{2\sigma^2\nu_1}\beta_j^2\right)\theta}
+    {  \nu_0^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_0}\beta_j^2\right)\left(1-\theta\right)+
+        \nu_1^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_1}\beta_j^2\right)\theta}\right).
+\end{eqnarray}\]</span></li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li><span class="math display">\[\sigma^2|{\boldsymbol \beta}, {\boldsymbol \gamma}, {\bf y}\sim \mathcal{IG}(a^*,b^*).\]</span>
+where <span class="math inline">\(a^*=\frac{1}{2}(n+p+a)\)</span> and <span class="math inline">\(b^* = \frac{1}{2}\left(\|{\bf y}-{\bf X}{\boldsymbol \beta}\|^2 + \sum_{j=1}^{p}\frac{\beta_j^2}{\nu_{\gamma_j}} + b\right).\)</span></li>
+</ol></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>For <span class="math inline">\(\theta|{\boldsymbol \gamma}\)</span>, we have</li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{align}
+        \pi(\theta|{\boldsymbol \gamma})&amp;\propto \pi({\boldsymbol \gamma}|\theta) \pi(\theta) \nonumber \\
+        &amp;\propto\left[ \prod_{j=1}^p \theta^{\gamma_j}(1-\theta)^{1-\gamma_j}\right] \theta^{c_1-1}(1-\theta)^{c_2-1} \nonumber\\
+        &amp;\propto \theta^{\sum_{j=1}^p \gamma_j+c_1-1}(1-\theta)^{p-\sum_{j=1}^p \gamma_j+c_2-1},
+\end{align}\]</span>
+where we will use <span class="math inline">\(c_1=c_2=1\)</span>, which leads to the uniform distribution.
+We therefore have
+<span class="math display">\[\begin{eqnarray}
+        \theta|{\boldsymbol \gamma}\sim \mathcal{B}\left(\sum_{j=1}^p \gamma_j+c_1,p-\sum_{j=1}^p \gamma_j+c_2\right).
+\end{eqnarray}\]</span></p>
+</div>
+</div>
+<div id="emvs" class="section level2">
+<h2><span class="header-section-number">2.3</span> EMVS</h2>
+<p>Genared toward finding posterior modes of the parameter posterior <span class="math inline">\(\pi({\boldsymbol \beta},\sigma^2,\theta|{\bf y})\)</span> rather than simulating from the entire model posterior <span class="math inline">\(\pi({\boldsymbol \gamma}|{\bf y})\)</span>, the EM algorithm derived here offers potentially enormous computational savings over stochastic search alternatives, especially in problems with a large number p of potential predictors.</p>
+<p><span class="math inline">\(\textbf{EMVS}\)</span> consists of two steps: E-Step, conditional expectation given the observed data and current parameter estimates, and M-Step, entails the maximization of the expected complete data log posterior with respect to <span class="math inline">\(({\boldsymbol \beta},\sigma^2,\theta)\)</span>.</p>
+<p>Define <span class="math inline">\({\boldsymbol \phi}= ({\boldsymbol \beta},\sigma^2,\theta)\)</span>. EM algorithm maximizes <span class="math inline">\(\pi({\boldsymbol \phi}|{\bf y})\)</span> by iteratively maximizing the objective function
+<span class="math display">\[\begin{eqnarray*}
+        Q({\boldsymbol \phi}|{\boldsymbol \phi}^{(t-1)},{\bf y}) = E_{{\boldsymbol \gamma}|\cdot}[\log \pi({\boldsymbol \phi},{\boldsymbol \gamma}|{\bf y})],
+\end{eqnarray*}\]</span>
+where <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}\)</span> denotes <span class="math inline">\(E_{{\boldsymbol \gamma}|{\boldsymbol \phi}^{(t-1)},{\bf y}}\)</span>.</p>
+<p>According to the class note, it can be written as
+<span class="math display" id="eq:Estep">\[\begin{eqnarray}
+    Q^{\star}({\boldsymbol \phi}|{\boldsymbol \phi}^{(t-1)},{\bf y}) = E_{{\boldsymbol \gamma}|\cdot}[\log \pi({\boldsymbol \phi}|{\boldsymbol \gamma},{\bf y})]
+    \tag{2.4}
+\end{eqnarray}\]</span>
+At the <span class="math inline">\((t-1)\)</span>th iteration, given <span class="math inline">\({\boldsymbol \phi}^{(t-1)}\)</span>, an E-step is first applied, which computes the expectation of the right side of <a href="the-em-approach-to-bayesian-variable-selection.html#eq:Estep">(2.4)</a> to obtain <span class="math inline">\(Q\)</span>. This is followed by M-step, which maximizes <span class="math inline">\(Q\)</span> over <span class="math inline">\(({\boldsymbol \beta},\sigma^2,\theta)\)</span> to obtain <span class="math inline">\(({\boldsymbol \beta}^{(t)},\sigma^{2{(t)}},\theta^{(t)})\)</span>.</p>
+<p><span class="math display">\[\begin{eqnarray*}
+        &amp;&amp;Q^{\star}({\boldsymbol \beta},\sigma^2,\theta|{\boldsymbol \beta}^{(t)},\sigma^{2{(t)}},\theta^{(t)},{\bf y}) \\
+        &amp;=&amp; Q^{\star}({\boldsymbol \beta},\sigma^2,\theta|{\boldsymbol \phi}^{(t-1)},{\bf y}) \\
+        &amp;=&amp; C + Q_1({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y}) + Q_2(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})\\
+        &amp;=&amp; C + E_{{\boldsymbol \gamma}|\cdot}[\log \pi({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})]+
+        E_{{\boldsymbol \gamma}|\cdot}[\log \pi(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})]
+\end{eqnarray*}\]</span></p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li><span class="math inline">\(Q_1({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})\)</span>
+<span class="math display">\[\begin{eqnarray*}
+      &amp;&amp;\pi({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})\\
+      &amp;\propto&amp; \pi(y|{\boldsymbol \beta},\sigma^2)\pi({\boldsymbol \beta}|\sigma^2,{\boldsymbol \gamma})\pi(\sigma^2)\\
+      &amp;\propto&amp; (\sigma^2)^{-\frac{n}{2}}\exp\left(-\frac{1}{2\sigma^2}||y-x{\boldsymbol \beta}||^2\right)
+      (\sigma^2)^{-\frac{p}{2}}\prod_{j=1}^{p}\nu_{\gamma_j}\exp\left(-\frac{1}{2\sigma^2\nu_{\gamma_j}}\beta_j^2\right)\\
+      &amp;&amp;\times (\sigma^2)^{-\frac{a}{2}-1}\exp\left(-\frac{b}{2\sigma^2}\right)\\
+      &amp;\propto&amp; (\sigma^2)^{-\frac{n+p+a+2}{2}}\exp\left[-\frac{1}{2\sigma^2}\left(||y-x{\boldsymbol \beta}||^2+
+      \sum_{j=1}^{p}\beta_j^2\frac{1}{\nu_{\gamma_j}}+b\right)\right]
+\end{eqnarray*}\]</span></li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;Q_1({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})\\
+            &amp;=&amp; E_{{\boldsymbol \gamma}|\cdot}[\log(\pi({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y}))]\\
+            &amp;=&amp; -\frac{1}{2}(n+p+a+2)\log(\sigma^2)-\frac{1}{2\sigma^2}(||y-x{\boldsymbol \beta}||^2+b)-\frac{1}{2\sigma^2}
+            \sum_{j=1}^{p}\beta_j^2E_{{\boldsymbol \gamma}|\cdot}[\frac{1}{\nu_{\gamma_j}}]
+\end{eqnarray*}\]</span></p>
+<ul>
+<li><ol start="2" style="list-style-type: decimal">
+<li><span class="math inline">\(Q_2(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})\)</span>
+<span class="math display">\[\begin{eqnarray*}
+      &amp;&amp;\pi(\theta|{\boldsymbol \gamma},{\bf y})\\
+      &amp;\propto&amp; \pi({\boldsymbol \gamma}|\theta)p(\theta)\\
+      &amp;\propto&amp; \theta^{\sum_{j=1}^{p}\gamma_j+c_1-1}(1-\theta)^{p-\sum_{j=1}^{p}\gamma_j+c_2-1}
+\end{eqnarray*}\]</span></li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;\log(\pi(\theta|{\boldsymbol \gamma},{\bf y}))\\
+            &amp;=&amp; C+ (\sum_{j=1}^{p}\gamma_j+c_1-1)\log \theta + (p-\sum_{j=1}^{p}\gamma_j+c_2-1)\log
+            (1-\theta)\\        
+            &amp;=&amp; C+\log \frac{\theta}{1-\theta} \sum_{j=1}^{p}\gamma_j
+            + (c_1-1)\log\theta + (p+c_2-1)\log(1-\theta)   
+\end{eqnarray*}\]</span></p>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;Q_2(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})\\
+            &amp;=&amp; \log \frac{\theta}{1-\theta} \sum_{j=1}^{p}E_{{\boldsymbol \gamma}|\cdot}[\gamma_j]+
+            (c_1-1)\log\theta + (p+c_2-1)\log(1-\theta) \\
+\end{eqnarray*}\]</span></p>
+<div id="the-e-step" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> The E-Step</h3>
+<p>The E-step proceeds by computing the conditional expectations <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}[\frac{1}{\nu_{\gamma_j}}]\)</span> and <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}[\gamma_j]\)</span> for <span class="math inline">\(Q_1\)</span> and <span class="math inline">\(Q_2\)</span>, respectively.</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>For <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}[\gamma_j]\)</span>,</li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;\pi(\gamma_j|\theta,\beta_j,\sigma^2,{\bf y})\\
+            &amp;\propto&amp;\pi(\beta_j|\gamma_j,\sigma^2)p(\gamma_j|\theta)\\
+            &amp;\propto&amp;\nu_{\gamma_j}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{\gamma_j}}\beta_j^2\right)
+            \theta^{\gamma_j}(1-\theta)^{1-\gamma_j}
+\end{eqnarray*}\]</span></p>
+<p>Hence, <span class="math inline">\(\pi(\gamma_j=1|\theta,\beta_j,\sigma^2,{\bf y})=C \nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta\equiv a_i\)</span>,</p>
+<p><span class="math inline">\(\pi(\gamma_j=0|\theta,\beta_j,\sigma^2,{\bf y})=C \nu_{0}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{0}}\beta_j^2\right)(1-\theta)\equiv b_i\)</span>.</p>
+<p>Hence,</p>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;E_{{\boldsymbol \gamma}|\cdot}[\gamma_j]=\pi(\gamma_j=1|\theta,\beta_j,\sigma^2,{\bf y})\\
+            &amp;=&amp;\frac{\pi(\gamma_j=1,\Omega)}{\sum_{\gamma_j}\pi(\gamma_j,\Omega)}\\
+            &amp;=&amp;\frac{C \nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta}
+            {C \nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta
+                +C \nu_{0}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{0}}\beta_j^2\right)(1-\theta)}\\
+            &amp;=&amp;\frac{ \nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta}
+            {\nu_{1}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{1}}\beta_j^2\right)\theta
+                + \nu_{0}^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_{0}}\beta_j^2\right)(1-\theta)}\\
+            &amp;=&amp;p_i^*
+\end{eqnarray*}\]</span></p>
+<p>Hence,</p>
+<p><span class="math display" id="eq:q2">\[\begin{eqnarray}
+        &amp;&amp;Q_2(\theta|{\boldsymbol \phi}^{(t-1)},{\bf y})\nonumber\\
+        &amp;=&amp; \log \frac{\theta}{1-\theta} \sum_{j=1}^{p}p_i^*+
+        (c_1-1)\log\theta + (p+c_2-1)\log(1-\theta)
+        \tag{2.5}
+\end{eqnarray}\]</span></p>
+<ul>
+<li><ol start="2" style="list-style-type: decimal">
+<li>For <span class="math inline">\(E_{{\boldsymbol \gamma}|\cdot}[\frac{1}{\nu_{\gamma_j}}]\)</span>,
+<span class="math display">\[\begin{eqnarray*}   
+      &amp;&amp;E_{{\boldsymbol \gamma}|\cdot}[\frac{1}{\nu_{\gamma_j}}]\\
+      &amp;=&amp;p(\gamma_j=1|\cdot)\frac{1}{\nu_{\gamma_j=1}} +
+      p(\gamma_j=0|\cdot)\frac{1}{\nu_{\gamma_j=0}}\\
+      &amp;=&amp; \frac{p_i^*}{\nu_{1}}+\frac{1-p_i^*}{\nu_{0}} \equiv d^*_i 
+\end{eqnarray*}\]</span>
+Hence,
+<span class="math display" id="eq:q1">\[\begin{eqnarray}
+  &amp;&amp;Q_1({\boldsymbol \beta},\sigma^2|{\boldsymbol \phi}^{(t-1)},{\bf y})\nonumber\\
+  &amp;=&amp; -\frac{1}{2}(n+p+a+2)\log(\sigma^2)-\frac{1}{2\sigma^2}(||{\bf y}-x{\boldsymbol \beta}||^2+b)-\frac{1}{2\sigma^2}
+  \sum_{j=1}^{p}\beta_j^2d^*_i \nonumber\\
+  &amp;=&amp; -\frac{1}{2}(n+p+a+2)\log(\sigma^2)-\frac{1}{2\sigma^2}(||{\bf y}-x{\boldsymbol \beta}||^2+b)-\nonumber\\
+  &amp;&amp;\frac{1}{2\sigma^2} ||{\bf D}^{*1/2}{\boldsymbol \beta}||^2, 
+  \tag{2.6}
+\end{eqnarray}\]</span>
+where <span class="math inline">\({\bf D}^*={\rm diag}\{d_i^*\}_{i=1}^{p^*}\)</span></li>
+</ol></li>
+</ul>
+</div>
+<div id="the-m-step" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> The M-Step</h3>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li><p>Maximize <span class="math inline">\(Q_1\)</span></p>
+<p><span class="math inline">\({\boldsymbol \beta}\)</span> values that maximizes <span class="math inline">\(Q1\)</span> in Eq.<a href="the-em-approach-to-bayesian-variable-selection.html#eq:q1">(2.6)</a> is equivalent to
+<span class="math display">\[
+  {\boldsymbol \beta}^{(t)}=\arg\min_{{\boldsymbol \beta}\to\mathcal{R}^p}||{\bf y}-x{\boldsymbol \beta}||^2+||{\bf D}^{*1/2}{\boldsymbol \beta}||^2.
+  \]</span>
+This is quickly obtained by the well-known solution to the ridge regression problem:
+<span class="math display">\[
+  {\boldsymbol \beta}^{(t)} = ({\bf X}^{{\top}}{\bf X}+{\bf D}^*)^{-1}{\bf X}^{{\top}}{\bf y}
+  \]</span></p>
+<p>Given <span class="math inline">\({\boldsymbol \beta}^{(t)}\)</span>, solve the solution of <span class="math inline">\(\frac{\partial Q_1}{\partial \sigma^2}\)</span>, we can easily obtain
+<span class="math display">\[
+  \sigma^{2(t)} = \frac{||{\bf y}-{\bf X}{\boldsymbol \beta}^{(t)}||^2+ ||{\bf D}^{*1/2}{\boldsymbol \beta}^{(t)}||^2 + b}{n+p+a+2}.
+  \]</span></p></li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Maximize <span class="math inline">\(Q_2\)</span></li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{eqnarray*}
+            &amp;&amp;\frac{\partial Q_2}{\partial \theta}\\
+            &amp;=&amp; \frac{1-\theta}{\theta}\frac{1-\theta+\theta}{(1-\theta)^2}\sum_{j=1}^{p}p_j^*+\frac{a-1}{\theta}-\frac{p+b-1}{1-\theta}\\
+            &amp;=&amp;\frac{\sum_{j=1}^{p}p_j^*}{\theta(1-\theta)}+\frac{a-1}{\theta}-\frac{p+b-1}{1-\theta}\\
+            &amp;=&amp;\frac{\sum_{j=1}^{p}p_j^*-(a+b+p-2)\theta+a-1}{\theta(1-\theta)}\\
+            &amp;\equiv&amp; 0
+\end{eqnarray*}\]</span>
+Hence, we have <span class="math inline">\(\theta^{(t)}=\frac{\sum_{j=1}^{p}p_j^*+a-1}{a+b+p-2}\)</span>.</p>
+</div>
+</div>
+<div id="simulation-case-study" class="section level2">
+<h2><span class="header-section-number">2.4</span> Simulation Case Study</h2>
+<p>According to this paper, the author simulate a dataset consisting of <span class="math inline">\(n=100\)</span> observations and <span class="math inline">\(p=1000\)</span> predictors. Predictor values for each observation were sampled from <span class="math inline">\(\mathcal{N}_p({\bf 0},{\boldsymbol \Sigma})\)</span> where <span class="math inline">\({\boldsymbol \Sigma}= (\rho_{ij})_{i,j=1}^p\)</span> with <span class="math inline">\(\rho_{ij}=0.6^{|i-j|}\)</span>. Response values were then generated according to the linear model <span class="math inline">\({\bf y}={\bf X}{\boldsymbol \beta}+{\boldsymbol \epsilon}\)</span>, where <span class="math inline">\({\boldsymbol \beta}=(3,2,1,0,0,\ldots,0)^{{\top}}\)</span> and <span class="math inline">\({\boldsymbol \epsilon}\sim \mathcal{N}_n({\bf 0},\sigma^2{\bf I}_n)\)</span> with <span class="math inline">\(\sigma^2 = 3\)</span>.</p>
+<p>The R code is shown bellow</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(mvtnorm)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="kw">library</span>(reshape2)</a>
+<a class="sourceLine" id="cb1-4" title="4">n &lt;-<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb1-5" title="5">p &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb1-6" title="6">beta &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="kw">rep</span>(<span class="dv">0</span>,p<span class="dv">-3</span>))</a>
+<a class="sourceLine" id="cb1-7" title="7">Sigma &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>,p,p)</a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p) {</a>
+<a class="sourceLine" id="cb1-9" title="9">  <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>p) {</a>
+<a class="sourceLine" id="cb1-10" title="10">    Sigma[i,j] =<span class="st"> </span><span class="fl">0.6</span><span class="op">^</span>(<span class="kw">abs</span>(i<span class="op">-</span>j))</a>
+<a class="sourceLine" id="cb1-11" title="11">  }</a>
+<a class="sourceLine" id="cb1-12" title="12">}</a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="kw">set.seed</span>(<span class="dv">2144</span>)</a>
+<a class="sourceLine" id="cb1-14" title="14">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rmvnorm</span>(n,<span class="dt">mean =</span> <span class="kw">rep</span>(<span class="dv">0</span>,p), <span class="dt">sigma =</span> Sigma),<span class="dt">nrow =</span> n)</a>
+<a class="sourceLine" id="cb1-15" title="15">y &lt;-<span class="st"> </span>x<span class="op">%*%</span>beta <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(n,<span class="dv">0</span>,<span class="kw">sqrt</span>(<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb1-16" title="16"><span class="co">## prior and initial values</span></a>
+<a class="sourceLine" id="cb1-17" title="17">MC =<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb1-18" title="18">nu0 =<span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb1-19" title="19">nu1 &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb1-20" title="20">hat.theta =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>,MC)</a>
+<a class="sourceLine" id="cb1-21" title="21">hat.theta[<span class="dv">1</span>] =<span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb1-22" title="22">hat.gamma &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>, p)</a>
+<a class="sourceLine" id="cb1-23" title="23">hat.beta =<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>,<span class="dt">nrow =</span> MC, <span class="dt">ncol =</span> p)</a>
+<a class="sourceLine" id="cb1-24" title="24">hat.beta[<span class="dv">1</span>,] =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span>,p)</a>
+<a class="sourceLine" id="cb1-25" title="25">hat.sig2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>,MC)</a>
+<a class="sourceLine" id="cb1-26" title="26">hat.sig2[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span><span class="co">#mean((y - x %*% hat.beta[1,])^2)</span></a>
+<a class="sourceLine" id="cb1-27" title="27"></a>
+<a class="sourceLine" id="cb1-28" title="28"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>MC) {</a>
+<a class="sourceLine" id="cb1-29" title="29">  a &lt;-<span class="st"> </span><span class="kw">dnorm</span>(hat.beta[i<span class="dv">-1</span>,],<span class="dv">0</span>,<span class="dt">sd =</span> <span class="kw">sqrt</span>(hat.sig2[i<span class="dv">-1</span>]<span class="op">*</span>nu1))<span class="op">*</span>(hat.theta[i<span class="dv">-1</span>])</a>
+<a class="sourceLine" id="cb1-30" title="30">  b &lt;-<span class="st"> </span><span class="kw">dnorm</span>(hat.beta[i<span class="dv">-1</span>,],<span class="dv">0</span>,<span class="dt">sd =</span> <span class="kw">sqrt</span>(hat.sig2[i<span class="dv">-1</span>]<span class="op">*</span>nu0))<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>hat.theta[i<span class="dv">-1</span>])</a>
+<a class="sourceLine" id="cb1-31" title="31">  p.star =<span class="st"> </span>a<span class="op">/</span>(a<span class="op">+</span>b)  </a>
+<a class="sourceLine" id="cb1-32" title="32">  D.star &lt;-<span class="st"> </span><span class="kw">diag</span>((<span class="dv">1</span><span class="op">-</span>p.star)<span class="op">/</span>nu0<span class="op">+</span>p.star<span class="op">/</span>nu1)</a>
+<a class="sourceLine" id="cb1-33" title="33">  D.star<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="kw">sqrt</span>((<span class="dv">1</span><span class="op">-</span>p.star)<span class="op">/</span>nu0<span class="op">+</span>p.star<span class="op">/</span>nu1))</a>
+<a class="sourceLine" id="cb1-34" title="34">  hat.beta[i,] &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(x)<span class="op">%*%</span>x<span class="op">+</span>D.star)<span class="op">%*%</span><span class="kw">t</span>(x)<span class="op">%*%</span>y</a>
+<a class="sourceLine" id="cb1-35" title="35">  hat.sig2[i] &lt;-<span class="st"> </span>(<span class="kw">t</span>(y<span class="op">-</span>x<span class="op">%*%</span>hat.beta[i,])<span class="op">%*%</span>(y<span class="op">-</span>x<span class="op">%*%</span>hat.beta[i,]) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-36" title="36"><span class="st">                    </span><span class="kw">t</span>(D.star<span class="fl">.5</span><span class="op">%*%</span>hat.beta[i,])<span class="op">%*%</span>(D.star<span class="fl">.5</span><span class="op">%*%</span>hat.beta[i,]) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)<span class="op">/</span>(n<span class="op">+</span>p<span class="op">+</span><span class="dv">1</span><span class="op">+</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-37" title="37">  hat.theta[i] &lt;-<span class="st"> </span><span class="kw">sum</span>(p.star)<span class="op">/</span>(p)</a>
+<a class="sourceLine" id="cb1-38" title="38">  <span class="co"># hat.theta[i] = 0.5</span></a>
+<a class="sourceLine" id="cb1-39" title="39">  </a>
+<a class="sourceLine" id="cb1-40" title="40">  <span class="co">##################################################</span></a>
+<a class="sourceLine" id="cb1-41" title="41">  <span class="co">## uncomment if you want to see the convergence ##</span></a>
+<a class="sourceLine" id="cb1-42" title="42">  </a>
+<a class="sourceLine" id="cb1-43" title="43">  <span class="co"># plot(beta,hat.beta[i,], ylim = c(-0.5,3))</span></a>
+<a class="sourceLine" id="cb1-44" title="44">  <span class="co"># abline(h = 0, col = 4)</span></a>
+<a class="sourceLine" id="cb1-45" title="45">  <span class="co"># abline(a=0,b=1,lty=2)</span></a>
+<a class="sourceLine" id="cb1-46" title="46">  <span class="co"># print(i)</span></a>
+<a class="sourceLine" id="cb1-47" title="47">}</a>
+<a class="sourceLine" id="cb1-48" title="48">data1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">beta=</span>beta,<span class="dt">hat.beta=</span>hat.beta[MC,])</a>
+<a class="sourceLine" id="cb1-49" title="49">fig1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(data1,<span class="kw">aes</span>(beta,hat.beta))<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-50" title="50"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&#39;red&#39;</span>,<span class="dt">size =</span> <span class="dv">2</span>,<span class="dt">alpha =</span> <span class="fl">0.7</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-51" title="51"><span class="st">  </span><span class="kw">ylab</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(beta)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-52" title="52"><span class="st">  </span><span class="kw">xlab</span>(<span class="kw">expression</span>(beta))<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-53" title="53"><span class="st">  </span><span class="kw">ylim</span>(<span class="kw">c</span>(<span class="op">-</span><span class="fl">0.3</span>,<span class="dv">3</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-54" title="54"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="dt">label =</span> <span class="st">&#39;MAP Estimate versus True Coefficients&#39;</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-55" title="55"><span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="dv">0</span>, <span class="dt">slope =</span> <span class="dv">1</span>,<span class="dt">lty =</span> <span class="dv">2</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb1-56" title="56"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">12</span>),</a>
+<a class="sourceLine" id="cb1-57" title="57">        <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">12</span>),</a>
+<a class="sourceLine" id="cb1-58" title="58">        <span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">12</span>),</a>
+<a class="sourceLine" id="cb1-59" title="59">        <span class="dt">axis.text.y =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb1-60" title="60"><span class="co"># print hat.theta and hat.sigma</span></a>
+<a class="sourceLine" id="cb1-61" title="61"><span class="kw">print</span>(<span class="kw">round</span>(<span class="kw">c</span>(hat.theta[MC],<span class="kw">sqrt</span>(hat.sig2[MC])),<span class="dv">4</span>))</a></code></pre></div>
+<pre><code>## [1] 0.0031 0.0404</code></pre>
+<p>Beginning with an illustration of the <span class="math inline">\(\textbf{EM}\)</span> algorithm from the section 3, we apply it to the simulated data using the spike-and-slab prior <a href="the-em-approach-to-bayesian-variable-selection.html#eq:spike-slab">(2.2)</a> with a single value <span class="math inline">\(\nu_0=0.5, \nu_1 = 1000\)</span>, and the <span class="math inline">\(\theta\sim U(0,1)\)</span>. The starting values for the <span class="math inline">\(\textbf{EM}\)</span> algorithm were set to <span class="math inline">\(\sigma^{2(0)}=1\)</span> and <span class="math inline">\({\boldsymbol \beta}^{(0)}=\bf{1}_p\)</span>. After only four iterations, the algorithm obtained the modal coefficient estimates <span class="math inline">\(\hat{{\boldsymbol \beta}}\)</span> depicted in Figure <a href="the-em-approach-to-bayesian-variable-selection.html#fig:fig1-a">2.1</a>, displaying the estimated <span class="math inline">\({\boldsymbol \beta}\)</span> and true <span class="math inline">\({\boldsymbol \beta}\)</span>. In my case, the associated modal estimates of <span class="math inline">\(\hat{\theta}\)</span> and <span class="math inline">\(\hat{\sigma^2}\)</span> were 0.003 and 0.040, respectively; which are very similar to results of the paper.</p>
+<p>For comparison, I applied the same formulation except with the Bernoulli prior <a href="the-em-approach-to-bayesian-variable-selection.html#eq:gamma">(2.3)</a> under fixed <span class="math inline">\(\theta=0.5\)</span> Figure <a href="the-em-approach-to-bayesian-variable-selection.html#fig:fig1-b">2.2</a>. Note the inferiority of the estimates near zero due to the lack of adaptivity of the Bernoulli prior in determining the degree of underlying sparsity.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig1-a"></span>
+<img src="images/fig1-a.png" alt="Modal estimates of the regression coefficients" width="70%" />
+<p class="caption">
+Figure 2.1: Modal estimates of the regression coefficients
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:fig1-b"></span>
+<img src="images/fig1-b.png" alt="Modal estimates of the regression coefficients" width="70%" />
+<p class="caption">
+Figure 2.2: Modal estimates of the regression coefficients
+</p>
+</div>
+<div id="the-effect-of-different-nu_0-and-boldsymbol-beta0-values-on-variable-selection" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> The effect of different <span class="math inline">\(\nu_0\)</span> and <span class="math inline">\({\boldsymbol \beta}^{(0)}\)</span> values on variable selection</h3>
+<p>Rather than fixing <span class="math inline">\(\nu_0\)</span> as 0.5, I vary it from 0 to 0.5 to see its effect on the variable selection. I imitate the author’s method to consider the grid of <span class="math inline">\(\nu_0\)</span> values <span class="math inline">\(V=\{0.01+k\times 0.01:k=0,\ldots,50\}\)</span> again with <span class="math inline">\(\nu_1=1000\)</span> fixed and <span class="math inline">\({\boldsymbol \beta}^{(0)}=\bf{1}_p\)</span>. Figure <a href="the-em-approach-to-bayesian-variable-selection.html#fig:fig2">2.3</a> shows the modal estimates of regression coefficients obtained for each <span class="math inline">\(\nu_0\in V\)</span>. We can discover that only when <span class="math inline">\(\nu_0 &gt;0.15\)</span>, we can get a good estimation for the <span class="math inline">\({\boldsymbol \beta}\)</span>.I also consider the effect different initial values of <span class="math inline">\({\boldsymbol \beta}\)</span> on the variable selection. Fix <span class="math inline">\(\nu_0=0.5\)</span> and <span class="math inline">\(\nu_1=1000\)</span>, I set the grid of <span class="math inline">\({\boldsymbol \beta}^{(0)}=\bf{c}_p\)</span> where <span class="math inline">\(\bf{c}\)</span> is a p-dimension vector with each value <span class="math inline">\(c_i = \{-5+0.2\times k:k=0,\ldots,50\}, i=1,2,\ldots,p\)</span>. Figure <a href="the-em-approach-to-bayesian-variable-selection.html#fig:fig3">2.4</a> depicts modal estimates of regression coefficients with different initial values of <span class="math inline">\({\boldsymbol \beta}^{(0)}\)</span>. We discover only when <span class="math inline">\(|{\boldsymbol \beta}^{(0)}|&lt;2\)</span>, we can get good estimation for the <span class="math inline">\({\boldsymbol \beta}\)</span>.</p>
+<p>I also consider the effect different initial values of <span class="math inline">\({\boldsymbol \beta}\)</span> on the variable selection. Fix <span class="math inline">\(\nu_0=0.5\)</span> and <span class="math inline">\(\nu_1=1000\)</span>, I set the grid of <span class="math inline">\({\boldsymbol \beta}^{(0)}=\bf{c}_p\)</span> where <span class="math inline">\(\bf{c}\)</span> is a p-dimension vector with each value <span class="math inline">\(c_i = \{-5+0.2\times k:k=0,\ldots,50\}, i=1,2,\ldots,p\)</span>. Figure <a href="the-em-approach-to-bayesian-variable-selection.html#fig:fig3">2.4</a> depicts modal estimates of regression coefficients with different initial values of <span class="math inline">\({\boldsymbol \beta}^{(0)}\)</span>. We discover only when <span class="math inline">\(|{\boldsymbol \beta}^{(0)}|&lt;2\)</span>, we can get good estimation for the <span class="math inline">\({\boldsymbol \beta}\)</span>.</p>
+<div class="figure" style="text-align: center"><span id="fig:fig2"></span>
+<img src="images/fig2.jpg" alt="Modal estimates of the regression coefficients" width="70%" />
+<p class="caption">
+Figure 2.3: Modal estimates of the regression coefficients
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:fig3"></span>
+<img src="images/fig3.png" alt="Modal estimates of the regression coefficients" width="70%" />
+<p class="caption">
+Figure 2.4: Modal estimates of the regression coefficients
+</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["EMVS.pdf", "EMVS.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

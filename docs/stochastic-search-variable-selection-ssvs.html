@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Stochastic Search Variable Selection (SSVS) | EMVS: The EM Approach to Bayesian Variable Selection</title>
+  <meta name="description" content="3 Stochastic Search Variable Selection (SSVS) | EMVS: The EM Approach to Bayesian Variable Selection" />
+  <meta name="generator" content="bookdown 0.13.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Stochastic Search Variable Selection (SSVS) | EMVS: The EM Approach to Bayesian Variable Selection" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Stochastic Search Variable Selection (SSVS) | EMVS: The EM Approach to Bayesian Variable Selection" />
+  
+  
+  
+
+<meta name="author" content="Caleb Jin" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction.html"/>
+<link rel="next" href="emvs.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">EMVS</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Foreword</a></li>
+<li class="chapter" data-level="2" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="stochastic-search-variable-selection-ssvs.html"><a href="stochastic-search-variable-selection-ssvs.html"><i class="fa fa-check"></i><b>3</b> Stochastic Search Variable Selection (SSVS)</a><ul>
+<li class="chapter" data-level="3.1" data-path="stochastic-search-variable-selection-ssvs.html"><a href="stochastic-search-variable-selection-ssvs.html#model-settings"><i class="fa fa-check"></i><b>3.1</b> Model Settings</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="emvs.html"><a href="emvs.html"><i class="fa fa-check"></i><b>4</b> EMVS</a><ul>
+<li class="chapter" data-level="4.1" data-path="emvs.html"><a href="emvs.html#the-e-step"><i class="fa fa-check"></i><b>4.1</b> The E-Step</a></li>
+<li class="chapter" data-level="4.2" data-path="emvs.html"><a href="emvs.html#the-m-step"><i class="fa fa-check"></i><b>4.2</b> The M-Step</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simulation-case-study.html"><a href="simulation-case-study.html"><i class="fa fa-check"></i><b>5</b> Simulation Case Study</a><ul>
+<li class="chapter" data-level="5.1" data-path="simulation-case-study.html"><a href="simulation-case-study.html#the-effect-of-different-nu_0-and-boldsymbol-beta0-values-on-variable-selection"><i class="fa fa-check"></i><b>5.1</b> The effect of different <span class="math inline">\(\nu_0\)</span> and <span class="math inline">\({\boldsymbol \beta}^{(0)}\)</span> values on variable selection</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://www.sjin.name" target="blank">Caleb Jin|金时强</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">EMVS: The EM Approach to Bayesian Variable Selection</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="stochastic-search-variable-selection-ssvs" class="section level1">
+<h1><span class="header-section-number">3</span> Stochastic Search Variable Selection (SSVS)</h1>
+<div id="model-settings" class="section level2">
+<h2><span class="header-section-number">3.1</span> Model Settings</h2>
+Consider a multiple linear regression model as follows:
+<span class="math display" id="eq:1">\[\begin{eqnarray}
+    {\bf y}={\bf X}{\boldsymbol \beta}+ {\boldsymbol \epsilon},
+    \tag{3.1}
+    \end{eqnarray}\]</span>
+where <span class="math inline">\({\bf y}=(y_1,\ldots,y_n)^{{\top}}\)</span> is the <span class="math inline">\(n\)</span>-dimensional response vector, <span class="math inline">\({\bf X}=[{\bf x}_1,\ldots,{\bf x}_n]^{{\top}}\)</span> is the <span class="math inline">\(n\times p\)</span> design
+matrix, <span class="math inline">\({\boldsymbol \beta}=(\beta_1, \beta_2, \ldots, \beta_p)&#39;\)</span>, <span class="math inline">\(\sigma^2\)</span> is a scalar, and <span class="math inline">\({\boldsymbol \epsilon}\sim \mathcal{N}_n({\bf 0},\sigma^2{\bf I}_n)\)</span>.
+Both <span class="math inline">\(\sigma^2\)</span> and <span class="math inline">\({\boldsymbol \beta}\)</span> are considerd bo te unknown. We assume that <span class="math inline">\(p&gt;n\)</span>.
+From <a href="stochastic-search-variable-selection-ssvs.html#eq:1">(3.1)</a>, the likelihood function is given as
+<span class="math display">\[\begin{eqnarray}
+    {\bf y}|{\boldsymbol \beta}, \sigma^2 \sim \mathcal{N}({\bf X}{\boldsymbol \beta}, \sigma^2I_n).
+    \end{eqnarray}\]</span>
+
+<p>The cornerstone of <span class="math inline">\(\textbf{SSVS}\)</span> is the “spike and slab” Gaussian mixture prior on <span class="math inline">\({\boldsymbol \beta}\)</span>,
+<span class="math display">\[\begin{eqnarray}
+    \beta_j|\sigma^2,\gamma_j \stackrel{ind}{\sim} (1-\gamma_j) \mathcal{N}(0, \sigma^2\nu_0) + \gamma_j\mathcal{N}(0,\sigma^2\nu_1),
+    \end{eqnarray}\]</span>
+where
+<span class="math display" id="eq:spike-slab">\[\begin{eqnarray*}
+        \gamma_j=\left\{
+        \begin{array}{lcr}
+            1 &amp; \beta_j \neq 0\\
+            0 &amp; \beta_j=0,
+\end{array}\right.
+\tag{3.2}
+\end{eqnarray*}\]</span>
+<span class="math inline">\(j=1,2,\ldots, p\)</span>. <span class="math inline">\(0\leq \nu_0&lt;\nu_1\)</span>.\
+Hence, <span class="math inline">\({\boldsymbol \beta}|\sigma^2,{\boldsymbol \gamma}\sim \mathcal{N}_p({\bf 0},{\bf D}_{\sigma^2,{\boldsymbol \gamma}})\)</span>, where <span class="math inline">\({\bf D}_{\sigma^2,{\boldsymbol \gamma}} = \sigma^2  {\rm diag}(\nu_{z_1},\nu_{z_1},\ldots,\nu_{z_p})\)</span>.\
+For the prior on the <span class="math inline">\(\sigma^2\)</span>, I follow the GM97 and use inverse gamma prior but different notation,
+<span class="math display">\[\begin{eqnarray}
+    \sigma^2 \sim \mathcal{IG}(\frac{a}{2}, \frac{b}{2}),
+    \end{eqnarray}\]</span>
+where we will use <span class="math inline">\(a=1\)</span> and <span class="math inline">\(b=1\)</span>, and <span class="math inline">\(\sigma^2\)</span> is also independent of <span class="math inline">\({\boldsymbol \gamma}\)</span>. \
+I follow the GM97 and use Bernoulli prior form but different notation,
+<span class="math display">\[\begin{eqnarray}
+    \gamma_j|\theta \stackrel{iid}{\sim} Ber(\theta), \theta \in [0,1].
+    \end{eqnarray}\]</span>
+Hence,
+<span class="math display" id="eq:gamma">\[\begin{eqnarray}\label{gamma}
+    {\boldsymbol \gamma}\propto \theta^{\sum_{j=1}^{p}\gamma_j}(1-\theta)^{p-\sum_{j=1}^{p}\gamma_j} 
+    \tag{3.3}
+    \end{eqnarray}\]</span>
+We assume
+<span class="math display">\[\begin{eqnarray}
+    \theta \sim \mathcal{B}(c_1,c_2),
+    \end{eqnarray}\]</span>
+where we will use <span class="math inline">\(c_1=c_2=1\)</span>, which leads to the uniform distribution.\</p>
+<p>It is easy to show that the full conditionals are as follows:</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li><span class="math display">\[\beta_j|{\boldsymbol \beta}_{-j}, \sigma^2, {\boldsymbol \gamma}, \nu_0, {\bf y}\sim \mathcal{N}(\tilde{\beta}_j, \frac{\sigma^2}{\mu_j}).\]</span>
+where <span class="math inline">\(\mu_j= x_j^{{\top}}x_j + \frac{1}{\nu_{\gamma_j}}\)</span> and <span class="math inline">\(\tilde{\beta}_j = \mu_j^{-1}x_j^{{\top}}({\bf y}- {\bf X}_{-j}{\boldsymbol \beta}_{-j})\)</span>.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li><span class="math display">\[\begin{eqnarray}
+    \gamma_j |{\boldsymbol \gamma}_{-j}, {\boldsymbol \beta}, \sigma^2, {\bf y}\sim Ber\left(\frac{ \nu_1^{-\frac{1}{2}}
+        \exp\left(-\frac{1}{2\sigma^2\nu_1}\beta_j^2\right)\theta}
+    {  \nu_0^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_0}\beta_j^2\right)\left(1-\theta\right)+
+        \nu_1^{-\frac{1}{2}}\exp\left(-\frac{1}{2\sigma^2\nu_1}\beta_j^2\right)\theta}\right).
+\end{eqnarray}\]</span></li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li><span class="math display">\[\sigma^2|{\boldsymbol \beta}, {\boldsymbol \gamma}, {\bf y}\sim \mathcal{IG}(a^*,b^*).\]</span>
+where <span class="math inline">\(a^*=\frac{1}{2}(n+p+a)\)</span> and <span class="math inline">\(b^* = \frac{1}{2}\left(\|{\bf y}-{\bf X}{\boldsymbol \beta}\|^2 + \sum_{j=1}^{p}\frac{\beta_j^2}{\nu_{\gamma_j}} + b\right).\)</span></li>
+</ol></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>For <span class="math inline">\(\theta|{\boldsymbol \gamma}\)</span>, we have</li>
+</ol></li>
+</ul>
+<p><span class="math display">\[\begin{align}
+        \pi(\theta|{\boldsymbol \gamma})&amp;\propto \pi({\boldsymbol \gamma}|\theta) \pi(\theta) \nonumber \\
+        &amp;\propto\left[ \prod_{j=1}^p \theta^{\gamma_j}(1-\theta)^{1-\gamma_j}\right] \theta^{c_1-1}(1-\theta)^{c_2-1} \nonumber\\
+        &amp;\propto \theta^{\sum_{j=1}^p \gamma_j+c_1-1}(1-\theta)^{p-\sum_{j=1}^p \gamma_j+c_2-1},
+\end{align}\]</span>
+where we will use <span class="math inline">\(c_1=c_2=1\)</span>, which leads to the uniform distribution.
+We therefore have
+<span class="math display">\[\begin{eqnarray}
+        \theta|{\boldsymbol \gamma}\sim \mathcal{B}\left(\sum_{j=1}^p \gamma_j+c_1,p-\sum_{j=1}^p \gamma_j+c_2\right).
+\end{eqnarray}\]</span></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="emvs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["EMVS.pdf", "EMVS.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
