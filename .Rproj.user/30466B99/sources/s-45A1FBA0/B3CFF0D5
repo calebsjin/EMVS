@@ -2,18 +2,18 @@
     "collab_server" : "",
     "contents" : "",
     "created" : 1570063273955.000,
-    "dirty" : true,
+    "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
     "hash" : "0",
     "id" : "B3CFF0D5",
     "lastKnownWriteTime" : 1530804166,
-    "last_content_update" : 1570063525046,
+    "last_content_update" : 1530804166,
     "path" : "~/statistics/stat course/907/907 report/EMVS2.R",
     "project_path" : null,
     "properties" : {
-        "cursorPosition" : "72,0",
-        "scrollLine" : "45"
+        "cursorPosition" : "71,0",
+        "scrollLine" : "0"
     },
     "relative_order" : 7,
     "source_on_save" : false,
